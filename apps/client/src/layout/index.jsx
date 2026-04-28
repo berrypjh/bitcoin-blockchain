@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { AppBar, Box, Divider, Toolbar } from '@mui/material';
 
 import Header from './Header';
-import Sidebar from './Sidebar/sidebar';
+import Sidebar from './Sidebar';
 
 const MainLayout = () => {
   const theme = useTheme();
