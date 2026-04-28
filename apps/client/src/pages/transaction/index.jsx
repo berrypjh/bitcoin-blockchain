@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { useState } from 'react';
 import Clock from 'react-live-clock';
 
-import MainCard from '../../ui-component/MainCard';
+import MainCard from '../../components/MainCard';
 import MyTransactionPage from './TxData';
 import UnspentTransactionPage from './UTXO';
 

@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 
 import LogoSection from '../LogoSection';
-import AddBlockCard from '../Block/AddBlockCard';
+import AddBlockCard from '../../pages/block/AddBlockCard';
 
 const Header = () => {
   return (

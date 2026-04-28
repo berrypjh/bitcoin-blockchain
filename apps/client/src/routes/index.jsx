@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 
 import MainLayout from '../layout';
-import Dashboard from '../views/dashboard';
-import BlockDefault from '../views/Block';
-import TransactionDefault from '../views/UnspentTransaction';
-import PeerDefault from '../views/Peer';
+import Dashboard from '../pages/dashboard';
+import BlockDefault from '../pages/block';
+import TransactionDefault from '../pages/transaction';
+import PeerDefault from '../pages/peer';
 
 const AppRoutes = () => (
   <Routes>

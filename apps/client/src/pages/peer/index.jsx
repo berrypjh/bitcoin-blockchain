@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { useState } from 'react';
-import MainCard from '../../ui-component/MainCard';
+import MainCard from '../../components/MainCard';
 import ConnectPeerPage from './ConnectPeer';
 import PeerPage from './Peer';
 

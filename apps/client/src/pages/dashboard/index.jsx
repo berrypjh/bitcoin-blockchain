@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { useState } from 'react';
 
-import MainCard from '../../ui-component/MainCard';
+import MainCard from '../../components/MainCard';
 import MainAddressPage from './mainAddress';
 import MempoolPage from './Mempool';
 import TransactionDefault from './Transaction';
