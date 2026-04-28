@@ -152,3 +152,6 @@ storybook-static
 
 # log
 *.log
+
+# wallet
+wallet

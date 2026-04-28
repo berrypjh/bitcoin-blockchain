@@ -1,0 +1,45 @@
+{
+  "name": "@bitcoin-blockchain/server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node app.js",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nodemon app.js",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "peer1": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node app.js",
+        "cwd": "{projectRoot}",
+        "env": {
+          "HTTP_PORT": "4001",
+          "P2P_PORT": "6001",
+          "PRIVATE_KEY": "peer1"
+        }
+      }
+    },
+    "peer2": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node app.js",
+        "cwd": "{projectRoot}",
+        "env": {
+          "HTTP_PORT": "4002",
+          "P2P_PORT": "6002",
+          "PRIVATE_KEY": "peer2"
+        }
+      }
+    }
+  }
+}

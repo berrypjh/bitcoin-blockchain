@@ -1,24 +1,18 @@
 {
   "name": "@bitcoin-blockchain/server",
   "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "peer1": "export HTTP_PORT=4001 && export P2P_PORT=6001 && export PRIVATE_KEY=peer1 && node app.js",
-    "peer2": "export HTTP_PORT=4002 && export P2P_PORT=6002 && export PRIVATE_KEY=peer2 && node app.js"
-  },
+  "private": true,
   "dependencies": {
-    "crypto-js": "^4.1.1",
-    "elliptic": "^6.5.4",
-    "express": "^4.17.2",
+    "crypto-js": "^4.2.0",
+    "elliptic": "^6.6.1",
+    "express": "^5.2.1",
     "hex-to-binary": "^1.0.1",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "merkle": "^0.6.0",
-    "morgan": "^1.10.0",
-    "ws": "^8.5.0"
+    "morgan": "^1.10.1",
+    "ws": "^8.20.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^3.1.14"
   }
 }

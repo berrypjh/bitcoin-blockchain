@@ -3,25 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"nx run @bitcoin-blockchain/server:start\" \"nx run @bitcoin-blockchain/client:start\"",
-    "dev:peer1": "concurrently \"nx run @bitcoin-blockchain/server:peer1\" \"nx run @bitcoin-blockchain/client:front-peer\"",
-    "dev:peer2": "concurrently \"nx run @bitcoin-blockchain/server:peer2\" \"nx run @bitcoin-blockchain/client:front-peer2\"",
+    "dev": "nx run-many -t start",
+    "dev:peer1": "nx run-many -t peer1",
+    "dev:peer2": "nx run-many -t peer2",
     "server": "nx run @bitcoin-blockchain/server:start",
     "server:dev": "nx run @bitcoin-blockchain/server:dev",
     "client": "nx run @bitcoin-blockchain/client:start",
-    "build": "nx run @bitcoin-blockchain/client:build"
+    "build": "nx run @bitcoin-blockchain/client:build",
+    "format": "prettier --write \"apps/**/*.{js,jsx,json}\" \"*.json\" \"*.yaml\""
   },
   "devDependencies": {
-    "concurrently": "^7.1.0",
-    "nx": "^20.0.0",
+    "nx": "^22.7.0",
     "prettier": "^3.8.3"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "core-js",
-      "core-js-pure",
-      "nx"
-    ]
   }
 }
