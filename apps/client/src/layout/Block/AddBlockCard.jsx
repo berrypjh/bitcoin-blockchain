@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Axios from 'axios';
-import { IconAxe } from '@tabler/icons';
+import { IconAxe } from '@tabler/icons-react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert, Grid } from '@mui/material';
@@ -82,11 +82,11 @@ const AddBlockCard = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={5} md={9}></Grid>
-        <Grid item xs={3} md={1}>
+        <Grid size={{ xs: 5, md: 9 }}></Grid>
+        <Grid size={{ xs: 3, md: 1 }}>
           <form onSubmit={onSubmitAddBlock}>{buttons}</form>
         </Grid>
-        <Grid item xs={2} md={1}>
+        <Grid size={{ xs: 2, md: 1 }}>
           <form onSubmit={onSubmitAutoBlock}>{Autobuttons}</form>
         </Grid>
       </Grid>

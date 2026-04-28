@@ -28,11 +28,11 @@ const PeerPage = (props) => {
     peer: [`ws://localhost:${Peer}`],
   };
 
-  useEffect(() => {
-    Axios.get('/api/peers').then((response) => {
-      props.setSuccessPeer(response.data.peer);
-    });
-  }, [props]);
+  // useEffect(() => {
+  //   Axios.get('/api/peers').then((response) => {
+  //     props.setSuccessPeer(response.data.peer);
+  //   });
+  // }, [props]);
 
   const onSubmitAddPeer = (e) => {
     e.preventDefault();
@@ -90,7 +90,7 @@ const PeerPage = (props) => {
   return (
     <>
       <form onSubmit={onSubmitAddPeer}>
-        <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
+        <FormControl component="div" sx={{ m: 1, width: '100%' }} variant="outlined">
           <TextField
             label="연결 대상 :"
             autoFocus

@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={2}>
+        <Grid size={2}>
           <Box
             style={{
               width: 128,
@@ -21,8 +21,8 @@ const Header = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={6}>
+        <Grid size={4}></Grid>
+        <Grid size={6}>
           <AddBlockCard />
         </Grid>
       </Grid>

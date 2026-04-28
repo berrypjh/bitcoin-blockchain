@@ -20,20 +20,20 @@ const BlockDefault = () => {
     setTime(e);
   };
 
-  useEffect(() => {
-    Axios.get('/api/blocks').then((response) => {
-      setBlocks(response.data);
-    });
-  }, [Time]);
+  // useEffect(() => {
+  //   Axios.get('/api/blocks').then((response) => {
+  //     setBlocks(response.data);
+  //   });
+  // }, [Time]);
 
   return (
     <>
       <Clock style={{ display: 'none' }} onChange={onFlag} ticking={true} timezone={'US/Pacific'} />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <BlocksCard data={data} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TransactionCard Transaction={Transaction} />
         </Grid>
       </Grid>

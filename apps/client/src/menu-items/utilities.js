@@ -6,7 +6,7 @@ import {
   IconCirclePlus,
   IconHome,
   IconBrandTelegram,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 
 const icons = {
   IconTypography,
@@ -27,7 +27,7 @@ const utilities = {
       id: 'default',
       title: '개요',
       type: 'item',
-      url: '',
+      url: '/',
       icon: icons.IconHome,
       breadcrumbs: false,
     },

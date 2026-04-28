@@ -7,11 +7,11 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 const MempoolPage = (props) => {
   const [Mempools, setMempools] = useState([]);
 
-  useEffect(() => {
-    Axios.get('/api/transactionPool').then((response) => {
-      setMempools(response.data);
-    });
-  }, [props.Flag, props.Time]);
+  // useEffect(() => {
+  //   Axios.get('/api/transactionPool').then((response) => {
+  //     setMempools(response.data);
+  //   });
+  // }, [props.Flag, props.Time]);
 
   let TxOuts = (props) => {
     const txOutsArray = props.mempool.txOuts;

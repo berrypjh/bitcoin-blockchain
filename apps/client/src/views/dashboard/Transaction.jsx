@@ -24,11 +24,11 @@ const TransactionDefault = (props) => {
     amount: Amount,
   };
 
-  useEffect(() => {
-    Axios.get('/api/balance').then((response) => {
-      setBalance(response.data.balance);
-    });
-  }, [props.Time]);
+  // useEffect(() => {
+  //   Axios.get('/api/balance').then((response) => {
+  //     setBalance(response.data.balance);
+  //   });
+  // }, [props.Time]);
 
   let newState = {
     vertical: 'top',
@@ -82,14 +82,14 @@ const TransactionDefault = (props) => {
   return (
     <>
       <Typography
-        variant="string"
+        variant="body1"
         component="div"
         sx={{ mt: 1.25, fontSize: '1rem', marginBottom: '8px', fontWeight: 500, color: '#868f96' }}
       >
         사용가능 : {Balance} BTC
       </Typography>
       <form onSubmit={onSubmitAddBlock}>
-        <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
+        <FormControl component="div" sx={{ m: 1, width: '100%' }} variant="outlined">
           <TextField
             label="송금할 대상 :"
             autoFocus
@@ -100,7 +100,7 @@ const TransactionDefault = (props) => {
             placeholder={'코인 주소를 입력하세요 (예: 044f732ce133baf8bb06e21b75f9114790b...)'}
           />
         </FormControl>
-        <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
+        <FormControl component="div" sx={{ m: 1, width: '100%' }} variant="outlined">
           <TextField
             label="금액 :"
             id="amount"

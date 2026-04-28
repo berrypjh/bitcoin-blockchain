@@ -8,16 +8,16 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 const MainAddressPage = () => {
   const [MyAddress, setMyAddress] = useState('');
 
-  useEffect(() => {
-    Axios.get('/api/address').then((response) => {
-      setMyAddress(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Axios.get('/api/address').then((response) => {
+  //     setMyAddress(response.data);
+  //   });
+  // }, []);
 
   return (
     <>
       <Typography
-        variant="string"
+        variant="body1"
         component="span"
         sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
       >

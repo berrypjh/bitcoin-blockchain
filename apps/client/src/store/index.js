@@ -1,8 +1,6 @@
 import { createStore } from 'redux';
-import { combineReducers } from 'redux';
 
-const reducer = combineReducers({});
-const store = createStore(reducer);
+const store = createStore((state = {}) => state);
 const persister = 'Free';
 
 export { store, persister };

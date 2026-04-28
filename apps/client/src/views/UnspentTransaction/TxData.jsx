@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { Divider, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Divider, Typography } from '@mui/material';
 
 const MyTransactionPage = (props) => {
   const [MyMempool, setMyMempool] = useState([]);
 
-  useEffect(() => {
-    Axios.get('/api/myMempool').then((response) => {
-      setMyMempool(response.data);
-    });
-  }, [props.Time]);
+  // useEffect(() => {
+  //   Axios.get('/api/myMempool').then((response) => {
+  //     setMyMempool(response.data);
+  //   });
+  // }, [props.Time]);
 
   return (
     <>
       <Typography
-        variant="string"
+        variant="body1"
         component="div"
         sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
       >

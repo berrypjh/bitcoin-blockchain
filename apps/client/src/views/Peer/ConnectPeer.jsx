@@ -5,7 +5,7 @@ const ConnectPeerPage = (props) => {
   return (
     <>
       <Typography
-        variant="string"
+        variant="body1"
         component="div"
         sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
       >
@@ -18,7 +18,7 @@ const ConnectPeerPage = (props) => {
           return (
             <Typography
               key={peer}
-              variant="string"
+              variant="body1"
               component="div"
               sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
             >

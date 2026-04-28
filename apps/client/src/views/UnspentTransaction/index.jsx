@@ -17,12 +17,12 @@ const UnspentTransactionDefault = () => {
     <>
       <Clock style={{ display: 'none' }} onChange={onFlag} ticking={true} timezone={'US/Pacific'} />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <MainCard>
             <UnspentTransactionPage Time={Time} />
           </MainCard>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <MainCard>
             <MyTransactionPage Time={Time} />
           </MainCard>
