@@ -1,5 +1,4 @@
-import Axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { Grid } from '@mui/material';
 import BlocksCard from './BlocksCard';

@@ -1,20 +1,17 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import { StyledEngineProvider } from '@mui/material';
 
 import { store } from './store';
-import themes from './themes';
+import theme from './themes';
 import AppRoutes from './routes';
 
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={themes()}>
-          <AppRoutes />
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <ThemeProvider theme={theme}>
+        <AppRoutes />
+      </ThemeProvider>
     </BrowserRouter>
   </Provider>
 );
