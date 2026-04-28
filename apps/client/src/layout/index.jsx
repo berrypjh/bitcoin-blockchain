@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { AppBar, Box, Divider, Toolbar } from '@mui/material';
 
 import Header from './Header';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 
 const MainLayout = () => {
   const theme = useTheme();
@@ -17,7 +17,7 @@ const MainLayout = () => {
         color="inherit"
         elevation={0}
         sx={{
-          bgcolor: theme.palette.background.default,
+          bgcolor: theme.palette.background.paper,
         }}
       >
         <Toolbar sx={{ height: 0 }} style={{ padding: 0 }}>

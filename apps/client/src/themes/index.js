@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-import colors from '../assets/scss/_themes-vars.module.scss';
+import colors from './colors';
 import componentStyleOverrides from './compStyleOverride';
 import themePalette from './palette';
 import themeTypography from './typography';
@@ -9,7 +9,7 @@ const tokens = {
   colors,
   heading: colors.grey900,
   paper: colors.paper,
-  backgroundDefault: colors.paper,
+  backgroundDefault: '#dfe9f3',
   background: colors.primaryLight,
   darkTextPrimary: colors.grey700,
   darkTextSecondary: colors.grey500,
