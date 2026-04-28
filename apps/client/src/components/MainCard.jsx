@@ -15,7 +15,6 @@ const MainCard = forwardRef(
       boxShadow,
       children,
       content = true,
-      contentClass = '',
       contentSX = {},
       darkTitle,
       secondary,
@@ -57,7 +56,7 @@ const MainCard = forwardRef(
 
         {/* card content */}
         {content && (
-          <CardContent sx={contentSX} className={contentClass}>
+          <CardContent sx={contentSX}>
             {children}
           </CardContent>
         )}
@@ -72,7 +71,6 @@ MainCard.propTypes = {
   boxShadow: PropTypes.bool,
   children: PropTypes.node,
   content: PropTypes.bool,
-  contentClass: PropTypes.string,
   contentSX: PropTypes.object,
   darkTitle: PropTypes.bool,
   secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
