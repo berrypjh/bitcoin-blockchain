@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 
 const MyTransactionPage = () => {

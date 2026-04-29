@@ -6,7 +6,7 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "react-scripts start",
+        "command": "vite",
         "cwd": "{projectRoot}"
       }
     },
@@ -14,24 +14,16 @@
       "executor": "nx:run-commands",
       "cache": true,
       "options": {
-        "command": "react-scripts build",
-        "cwd": "{projectRoot}"
-      }
-    },
-    "test": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "react-scripts test",
+        "command": "vite build",
         "cwd": "{projectRoot}"
       }
     },
     "peer1": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "react-scripts start",
+        "command": "vite --port 3001",
         "cwd": "{projectRoot}",
         "env": {
-          "PORT": "3001",
           "HTTP_PORT": "4001"
         }
       }
@@ -39,10 +31,9 @@
     "peer2": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "react-scripts start",
+        "command": "vite --port 3002",
         "cwd": "{projectRoot}",
         "env": {
-          "PORT": "3002",
           "HTTP_PORT": "4002"
         }
       }

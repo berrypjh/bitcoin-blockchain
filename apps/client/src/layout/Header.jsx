@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 
 import LogoSection from './LogoSection';
-import AddBlockCard from '../pages/block/AddBlockCard';
+import AddBlockCard from '@/components/block/AddBlockCard';
 
 const Header = () => (
   <Grid container spacing={2}>

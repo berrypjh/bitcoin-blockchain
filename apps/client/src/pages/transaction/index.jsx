@@ -2,9 +2,9 @@ import { Grid } from '@mui/material';
 import { useState } from 'react';
 import Clock from 'react-live-clock';
 
-import MainCard from '../../components/MainCard';
-import MyTransactionPage from './TxData';
-import UnspentTransactionPage from './UTXO';
+import MainCard from '@/components/MainCard';
+import MyTransactionPage from '@/components/transaction/MyTransaction';
+import UnspentTransactionPage from '@/components/transaction/UnspentTransaction';
 
 const UnspentTransactionDefault = () => {
   const [Time, setTime] = useState('');

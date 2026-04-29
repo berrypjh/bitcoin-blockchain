@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
 import { useState } from 'react';
-import MainCard from '../../components/MainCard';
-import ConnectPeerPage from './ConnectPeer';
-import PeerPage from './Peer';
+import MainCard from '@/components/MainCard';
+import ConnectPeerPage from '@/components/peer/ConnectPeer';
+import PeerPage from '@/components/peer/Peer';
 
 const PeerDefault = () => {
   const [SuccessPeer, setSuccessPeer] = useState([]);
