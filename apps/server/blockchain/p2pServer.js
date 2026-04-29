@@ -140,17 +140,18 @@ const initMessageHandler = (ws) => {
       case MessageType.QUERY_ALL:
         write(ws, responseAllChainMsg());
         break;
-      case MessageType.RESPONSE_BLOCKCHAIN:
+      case MessageType.RESPONSE_BLOCKCHAIN: {
         const receivedBlocks = message.data;
         if (receivedBlocks === null) {
           break;
         }
         handleBlockChainResponse(receivedBlocks);
         break;
+      }
       case MessageType.REQUEST_MEMPOOL:
         write(ws, returnMempool());
         break;
-      case MessageType.MEMPOOL_RESPONSE:
+      case MessageType.MEMPOOL_RESPONSE: {
         const receivedTxs = message.data;
         if (receivedTxs === null) {
           return;
@@ -164,6 +165,7 @@ const initMessageHandler = (ws) => {
           }
         });
         break;
+      }
     }
   });
 };

@@ -91,7 +91,7 @@ const getBlocks = () => {
 };
 
 const getReverseBlocks = () => {
-  reverseBlocks = [...Blocks].reverse();
+  const reverseBlocks = [...Blocks].reverse();
   return reverseBlocks;
 };
 

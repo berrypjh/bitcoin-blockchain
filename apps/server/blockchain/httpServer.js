@@ -9,7 +9,6 @@ const {
   getAccountBalance,
   sendTx,
   getFindMyUTxO,
-  gettt,
   gefindMyUTxOutsFromMempool,
 } = require('./block');
 const { getMempool } = require('./memPool');
