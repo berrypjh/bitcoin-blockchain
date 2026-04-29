@@ -1,21 +1,15 @@
 import { Grid } from '@mui/material';
 import { useState } from 'react';
-import Clock from 'react-live-clock';
 
 import MainCard from '@/components/MainCard';
 import MyTransactionPage from '@/components/transaction/MyTransaction';
 import UnspentTransactionPage from '@/components/transaction/UnspentTransaction';
 
 const UnspentTransactionDefault = () => {
-  const [Time, setTime] = useState('');
-
-  let onFlag = (e) => {
-    setTime(e);
-  };
+  const [Time] = useState('');
 
   return (
     <>
-      <Clock style={{ display: 'none' }} onChange={onFlag} ticking={true} timezone={'US/Pacific'} />
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 6 }}>
           <MainCard>
