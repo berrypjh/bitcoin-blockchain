@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  minimist: ^1.2.8
+
 importers:
 
   .:
@@ -1859,9 +1862,6 @@ packages:
 
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
-
-  minimist@0.0.10:
-    resolution: {integrity: sha512-iotkTvxc+TwOm5Ieim8VnSNvCDjCK9S8G3scJ50ZthspSxa7jx50jkhYduuAtAjvfDUwSgOwf8+If99AlOEhyw==}
 
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
@@ -4420,8 +4420,6 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.14
 
-  minimist@0.0.10: {}
-
   minimist@1.2.8: {}
 
   moment-timezone@0.5.48:
@@ -4675,7 +4673,7 @@ snapshots:
 
   optimist@0.6.1:
     dependencies:
-      minimist: 0.0.10
+      minimist: 1.2.8
       wordwrap: 0.0.3
 
   optionator@0.9.4:

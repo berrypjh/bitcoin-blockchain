@@ -14,6 +14,11 @@
     "lint:fix": "eslint apps/ --fix",
     "format": "prettier --write \"apps/**/*.{js,jsx,json}\" \"*.json\" \"*.yaml\""
   },
+  "pnpm": {
+    "overrides": {
+      "minimist": "^1.2.8"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.2.1",
