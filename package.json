@@ -10,9 +10,16 @@
     "server:dev": "nx run @bitcoin-blockchain/server:dev",
     "client": "nx run @bitcoin-blockchain/client:start",
     "build": "nx run @bitcoin-blockchain/client:build",
+    "lint": "eslint apps/",
+    "lint:fix": "eslint apps/ --fix",
     "format": "prettier --write \"apps/**/*.{js,jsx,json}\" \"*.json\" \"*.yaml\""
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.5.0",
     "nx": "^22.7.0",
     "prettier": "^3.8.3"
   }
