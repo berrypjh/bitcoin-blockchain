@@ -16,15 +16,6 @@ export default [
       sourceType: 'commonjs',
     },
   },
-  // Client - Node.js CJS files (setupProxy, etc.)
-  {
-    files: ['apps/client/src/setupProxy.js'],
-    ...js.configs.recommended,
-    languageOptions: {
-      globals: { ...globals.node },
-      sourceType: 'commonjs',
-    },
-  },
   // Client
   {
     ...react.configs.flat.recommended,
