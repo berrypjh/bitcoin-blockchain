@@ -55,16 +55,14 @@ const MainCard = forwardRef(
         {title && <Divider />}
 
         {/* card content */}
-        {content && (
-          <CardContent sx={contentSX}>
-            {children}
-          </CardContent>
-        )}
+        {content && <CardContent sx={contentSX}>{children}</CardContent>}
         {!content && children}
       </Card>
     );
   },
 );
+
+MainCard.displayName = 'MainCard';
 
 MainCard.propTypes = {
   border: PropTypes.bool,

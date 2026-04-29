@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
+import React, { useState } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 
-const UnspentTransactionPage = (props) => {
-  const [MyUTXO, setMyUTXO] = useState([]);
+const UnspentTransactionPage = () => {
+  const [MyUTXO] = useState([]);
 
   // useEffect(() => {
   //   Axios.get('/api/myUnspentTransaction').then((response) => {

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { FormControl, TextField } from '@mui/material';
 import Axios from 'axios';
 
@@ -6,7 +7,7 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
-const PeerPage = (props) => {
+const PeerPage = ({ SuccessPeer, setSuccessPeer }) => {
   const [Peer, setPeer] = useState('');
   const [FlagPeer, setFlagPeer] = useState('');
   const [State, setState] = useState({
@@ -19,7 +20,7 @@ const PeerPage = (props) => {
 
   const { vertical, horizontal, successOpen, errorOpen, warningOpen } = State;
 
-  let newState = {
+  const newState = {
     vertical: 'top',
     horizontal: 'center',
   };
@@ -30,21 +31,21 @@ const PeerPage = (props) => {
 
   // useEffect(() => {
   //   Axios.get('/api/peers').then((response) => {
-  //     props.setSuccessPeer(response.data.peer);
+  //     setSuccessPeer(response.data.peer);
   //   });
-  // }, [props]);
+  // }, []);
 
   const onSubmitAddPeer = (e) => {
     e.preventDefault();
     const ws = `127.0.0.1:${Peer}`;
-    if (!props.SuccessPeer.includes(ws)) {
+    if (!SuccessPeer.includes(ws)) {
       Axios.post('/api/addPeers', data).then((response) => {
         setFlagPeer(response.data.peer);
         Axios.get('/api/peers').then((response) => {
           const peerArray = response.data.peer;
           if (peerArray.includes(ws)) {
             setState({ successOpen: true, ...newState });
-            props.setSuccessPeer(props.SuccessPeer.concat(ws));
+            setSuccessPeer(SuccessPeer.concat(ws));
             setPeer('');
           } else {
             setState({ errorOpen: true, ...newState });
@@ -59,33 +60,10 @@ const PeerPage = (props) => {
     }
   };
 
-  const onPeerChange = (e) => {
-    setPeer(e.target.value);
-  };
-
-  const handleClose = () => {
-    setState({ ...State, successOpen: false });
-  };
-  const handleErrorClose = () => {
-    setState({ ...State, errorOpen: false });
-  };
-  const handleWarningClose = () => {
-    setState({ ...State, warningOpen: false });
-  };
-
-  const buttons = (
-    <>
-      <Button
-        type="submit"
-        color="secondary"
-        variant="outlined"
-        className="sendbutton"
-        style={{ width: '100%' }}
-      >
-        연결하기
-      </Button>
-    </>
-  );
+  const onPeerChange = (e) => setPeer(e.target.value);
+  const handleClose = () => setState({ ...State, successOpen: false });
+  const handleErrorClose = () => setState({ ...State, errorOpen: false });
+  const handleWarningClose = () => setState({ ...State, warningOpen: false });
 
   return (
     <>
@@ -101,7 +79,15 @@ const PeerPage = (props) => {
             placeholder={'4자리 숫자를 입력해주세요.'}
           />
         </FormControl>
-        {buttons}
+        <Button
+          type="submit"
+          color="secondary"
+          variant="outlined"
+          className="sendbutton"
+          style={{ width: '100%' }}
+        >
+          연결하기
+        </Button>
       </form>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
@@ -144,6 +130,11 @@ const PeerPage = (props) => {
       </Snackbar>
     </>
   );
+};
+
+PeerPage.propTypes = {
+  SuccessPeer: PropTypes.arrayOf(PropTypes.string),
+  setSuccessPeer: PropTypes.func,
 };
 
 export default PeerPage;

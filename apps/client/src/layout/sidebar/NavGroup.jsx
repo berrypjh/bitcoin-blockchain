@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import { List, Typography } from '@mui/material';
 
@@ -42,6 +43,14 @@ const NavGroup = ({ item }) => {
       {items}
     </List>
   );
+};
+
+NavGroup.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    caption: PropTypes.string,
+    children: PropTypes.array,
+  }),
 };
 
 export default NavGroup;

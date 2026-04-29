@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Axios from 'axios';
 import { FormControl, TextField, Typography } from '@mui/material';
 
@@ -6,7 +7,7 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
-const TransactionDefault = (props) => {
+const TransactionDefault = ({ setFlag }) => {
   const [SendAddress, setSendAddress] = useState('');
   const [Amount, setAmount] = useState('');
   const [State, setState] = useState({
@@ -15,7 +16,7 @@ const TransactionDefault = (props) => {
     vertical: 'top',
     horizontal: 'center',
   });
-  const [Balance, setBalance] = useState(0);
+  const [Balance] = useState(0);
 
   const { vertical, horizontal, successOpen, errorOpen } = State;
 
@@ -30,7 +31,7 @@ const TransactionDefault = (props) => {
   //   });
   // }, [props.Time]);
 
-  let newState = {
+  const newState = {
     vertical: 'top',
     horizontal: 'center',
   };
@@ -45,39 +46,15 @@ const TransactionDefault = (props) => {
       setState({ successOpen: true, ...newState });
       setSendAddress('');
       setAmount('');
-      props.setFlag(true);
+      setFlag(true);
     });
-    props.setFlag(false);
+    setFlag(false);
   };
 
-  const onSendAddressChange = (e) => {
-    setSendAddress(e.target.value);
-  };
-
-  const onAmountChange = (e) => {
-    setAmount(e.target.value);
-  };
-
-  const handleClose = () => {
-    setState({ ...State, successOpen: false });
-  };
-  const handleErrorClose = () => {
-    setState({ ...State, errorOpen: false });
-  };
-
-  const buttons = (
-    <>
-      <Button
-        type="submit"
-        color="secondary"
-        variant="outlined"
-        className="sendbutton"
-        style={{ width: '100%' }}
-      >
-        보내기
-      </Button>
-    </>
-  );
+  const onSendAddressChange = (e) => setSendAddress(e.target.value);
+  const onAmountChange = (e) => setAmount(e.target.value);
+  const handleClose = () => setState({ ...State, successOpen: false });
+  const handleErrorClose = () => setState({ ...State, errorOpen: false });
 
   return (
     <>
@@ -110,7 +87,15 @@ const TransactionDefault = (props) => {
             placeholder={'0'}
           />
         </FormControl>
-        {buttons}
+        <Button
+          type="submit"
+          color="secondary"
+          variant="outlined"
+          className="sendbutton"
+          style={{ width: '100%' }}
+        >
+          보내기
+        </Button>
       </form>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
@@ -140,6 +125,10 @@ const TransactionDefault = (props) => {
       </Snackbar>
     </>
   );
+};
+
+TransactionDefault.propTypes = {
+  setFlag: PropTypes.func,
 };
 
 export default TransactionDefault;

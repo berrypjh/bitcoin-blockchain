@@ -8,11 +8,7 @@ import TransactionDefault from './Transaction';
 
 const Dashboard = () => {
   const [Flag, setFlag] = useState(false);
-  const [Time, setTime] = useState('');
-
-  let onFlag = (e) => {
-    setTime(e);
-  };
+  const [Time] = useState('');
 
   return (
     <>

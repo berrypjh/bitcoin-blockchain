@@ -1,7 +1,7 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Divider, Typography } from '@mui/material';
 
-const ConnectPeerPage = (props) => {
+const ConnectPeerPage = ({ SuccessPeer }) => {
   return (
     <>
       <Typography
@@ -13,21 +13,23 @@ const ConnectPeerPage = (props) => {
       </Typography>
       <Divider sx={{ mt: 0.25, mb: 0.25, marginTop: '10px' }} />
 
-      {props.SuccessPeer &&
-        props.SuccessPeer.map((peer) => {
-          return (
-            <Typography
-              key={peer}
-              variant="body1"
-              component="div"
-              sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
-            >
-              {peer}
-            </Typography>
-          );
-        })}
+      {SuccessPeer &&
+        SuccessPeer.map((peer) => (
+          <Typography
+            key={peer}
+            variant="body1"
+            component="div"
+            sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
+          >
+            {peer}
+          </Typography>
+        ))}
     </>
   );
+};
+
+ConnectPeerPage.propTypes = {
+  SuccessPeer: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ConnectPeerPage;

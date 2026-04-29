@@ -1,9 +1,4 @@
-import {
-  IconHome,
-  IconWallet,
-  IconCurrencyBitcoin,
-  IconCirclePlus,
-} from '@tabler/icons-react';
+import { IconHome, IconWallet, IconCurrencyBitcoin, IconCirclePlus } from '@tabler/icons-react';
 
 const menuItems = {
   items: [
