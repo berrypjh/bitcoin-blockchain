@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Axios from 'axios';
+import { mineBlock, miningBlock } from '@/api/blocks';
 import { IconAxe } from '@tabler/icons-react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
@@ -23,23 +23,15 @@ const AddBlockCard = () => {
 
   const onSubmitAddBlock = (e) => {
     e.preventDefault();
-    Axios.post('/api/mineBlock').then((response) => {
-      if (response.data.message === false) {
-        setState({ errorOpen: true, ...newState });
-        return;
-      }
-      setState({ successOpen: true, ...newState });
+    mineBlock().then((res) => {
+      setState({ ...(res.message === false ? { errorOpen: true } : { successOpen: true }), ...newState });
     });
   };
 
   const onSubmitAutoBlock = (e) => {
     e.preventDefault();
-    Axios.post('/api/miningBlock').then((response) => {
-      if (response.data.message === false) {
-        setState({ errorOpen: true, ...newState });
-        return;
-      }
-      setState({ successOpen: true, ...newState });
+    miningBlock().then((res) => {
+      setState({ ...(res.message === false ? { errorOpen: true } : { successOpen: true }), ...newState });
     });
   };
 

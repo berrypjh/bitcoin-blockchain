@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { getAddress } from '@/api/dashboard';
 
 const MainAddressPage = () => {
-  const [MyAddress] = useState('');
+  const [MyAddress, setMyAddress] = useState('');
 
-  // useEffect(() => {
-  //   Axios.get('/api/address').then((response) => {
-  //     setMyAddress(response.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getAddress().then(setMyAddress);
+  }, []);
 
   return (
     <>

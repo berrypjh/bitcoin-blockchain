@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FormControl, TextField } from '@mui/material';
-import Axios from 'axios';
+import { getPeers, addPeer } from '@/api/peer';
 
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
@@ -25,39 +25,27 @@ const PeerPage = ({ SuccessPeer, setSuccessPeer }) => {
     horizontal: 'center',
   };
 
-  const data = {
-    peer: [`ws://localhost:${Peer}`],
-  };
-
-  // useEffect(() => {
-  //   Axios.get('/api/peers').then((response) => {
-  //     setSuccessPeer(response.data.peer);
-  //   });
-  // }, []);
-
   const onSubmitAddPeer = (e) => {
     e.preventDefault();
     const ws = `127.0.0.1:${Peer}`;
-    if (!SuccessPeer.includes(ws)) {
-      Axios.post('/api/addPeers', data).then((response) => {
-        setFlagPeer(response.data.peer);
-        Axios.get('/api/peers').then((response) => {
-          const peerArray = response.data.peer;
-          if (peerArray.includes(ws)) {
-            setState({ successOpen: true, ...newState });
-            setSuccessPeer(SuccessPeer.concat(ws));
-            setPeer('');
-          } else {
-            setState({ errorOpen: true, ...newState });
-            setPeer('');
-          }
-        });
-      });
-    } else {
+    if (SuccessPeer.includes(ws)) {
       setFlagPeer(Peer);
       setState({ warningOpen: true, ...newState });
       setPeer('');
+      return;
     }
+    addPeer(Peer).then((addedPeers) => {
+      setFlagPeer(addedPeers);
+      getPeers().then((peerArray) => {
+        if (peerArray.includes(ws)) {
+          setState({ successOpen: true, ...newState });
+          setSuccessPeer(SuccessPeer.concat(ws));
+        } else {
+          setState({ errorOpen: true, ...newState });
+        }
+        setPeer('');
+      });
+    });
   };
 
   const onPeerChange = (e) => setPeer(e.target.value);

@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
+import { getMyUnspentTransaction } from '@/api/transaction';
 
 const UnspentTransactionPage = () => {
-  const [MyUTXO] = useState([]);
+  const [MyUTXO, setMyUTXO] = useState([]);
 
-  // useEffect(() => {
-  //   Axios.get('/api/myUnspentTransaction').then((response) => {
-  //     setMyUTXO(response.data);
-  //   });
-  // }, [props.Time]);
+  useEffect(() => {
+    getMyUnspentTransaction().then(setMyUTXO);
+  }, []);
 
   return (
     <>

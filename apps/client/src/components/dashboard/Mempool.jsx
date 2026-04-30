@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getMempool } from '@/api/dashboard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from '@mui/material';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -50,13 +51,11 @@ TxIns.propTypes = {
 };
 
 const MempoolPage = () => {
-  const [Mempools] = useState([]);
+  const [Mempools, setMempools] = useState([]);
 
-  // useEffect(() => {
-  //   Axios.get('/api/transactionPool').then((response) => {
-  //     setMempools(response.data);
-  //   });
-  // }, [props.Flag, props.Time]);
+  useEffect(() => {
+    getMempool().then(setMempools);
+  }, []);
 
   return (
     <>

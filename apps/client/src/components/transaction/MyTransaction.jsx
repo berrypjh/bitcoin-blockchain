@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
+import { getMyMempool } from '@/api/transaction';
 
 const MyTransactionPage = () => {
-  const [MyMempool] = useState([]);
+  const [MyMempool, setMyMempool] = useState([]);
 
-  // useEffect(() => {
-  //   Axios.get('/api/myMempool').then((response) => {
-  //     setMyMempool(response.data);
-  //   });
-  // }, [props.Time]);
+  useEffect(() => {
+    getMyMempool().then(setMyMempool);
+  }, []);
 
   return (
     <>

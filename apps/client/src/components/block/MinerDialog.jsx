@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import Axios from 'axios';
 import { Button, Dialog, DialogActions, DialogContentText, DialogTitle } from '@mui/material';
+import { getMinerAddress } from '@/api/blocks';
 import StyledBreadcrumb from '@/components/StyledBreadcrumb';
 
 const MinerDialog = ({ block }) => {
@@ -11,9 +11,7 @@ const MinerDialog = ({ block }) => {
 
   const handleClickOpen = () => {
     if (!MinerAddress) return;
-    Axios.get(`/api/address/${MinerAddress}`).then((response) => {
-      setMinerInfo(response.data);
-    });
+    getMinerAddress(MinerAddress).then(setMinerInfo);
     setOpen(true);
   };
 

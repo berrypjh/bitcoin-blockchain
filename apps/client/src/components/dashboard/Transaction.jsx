@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import Axios from 'axios';
+import { useState, useEffect } from 'react';
 import { FormControl, TextField, Typography } from '@mui/material';
+import { getBalance, addTransaction } from '@/api/dashboard';
 
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
@@ -16,20 +16,13 @@ const TransactionDefault = ({ setFlag }) => {
     vertical: 'top',
     horizontal: 'center',
   });
-  const [Balance] = useState(0);
+  const [Balance, setBalance] = useState(0);
 
   const { vertical, horizontal, successOpen, errorOpen } = State;
 
-  const data = {
-    address: SendAddress,
-    amount: Amount,
-  };
-
-  // useEffect(() => {
-  //   Axios.get('/api/balance').then((response) => {
-  //     setBalance(response.data.balance);
-  //   });
-  // }, [props.Time]);
+  useEffect(() => {
+    getBalance().then(setBalance);
+  }, []);
 
   const newState = {
     vertical: 'top',
@@ -38,8 +31,9 @@ const TransactionDefault = ({ setFlag }) => {
 
   const onSubmitAddBlock = (e) => {
     e.preventDefault();
-    Axios.post('/api/addtransactions', data).then((response) => {
-      if (response.data.message === false) {
+    setFlag(false);
+    addTransaction({ address: SendAddress, amount: Amount }).then((res) => {
+      if (res.message === false) {
         setState({ errorOpen: true, ...newState });
         return;
       }
@@ -48,7 +42,6 @@ const TransactionDefault = ({ setFlag }) => {
       setAmount('');
       setFlag(true);
     });
-    setFlag(false);
   };
 
   const onSendAddressChange = (e) => setSendAddress(e.target.value);

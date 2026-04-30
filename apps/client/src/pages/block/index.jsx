@@ -1,20 +1,18 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
+import { getBlocks } from '@/api/blocks';
 import BlocksCard from '@/components/block/BlocksCard';
 import TransactionCard from '@/components/block/TransactionCard';
 
 const BlockDefault = () => {
-  const [Blocks] = useState([]);
+  const [Blocks, setBlocks] = useState([]);
   const [Transaction, setTransaction] = useState([]);
 
   const data = { Blocks, setTransaction };
 
-  // useEffect(() => {
-  //   Axios.get('/api/blocks').then((response) => {
-  //     setBlocks(response.data);
-  //   });
-  // }, [Time]);
+  useEffect(() => {
+    getBlocks().then(setBlocks);
+  }, []);
 
   return (
     <>
