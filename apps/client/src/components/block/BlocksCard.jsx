@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import StyledBreadcrumb from '@/components/StyledBreadcrumb';
+import StyledBreadcrumb from '@/components/ui/StyledBreadcrumb';
 import MinerDialog from './MinerDialog';
 
 const truncatedSx = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };

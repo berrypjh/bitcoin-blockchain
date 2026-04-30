@@ -1,7 +1,8 @@
-import { Grid } from '@mui/material';
 import { useState, useEffect, useCallback } from 'react';
 
-import MainCard from '@/components/MainCard';
+import { Grid } from '@mui/material';
+
+import MainCard from '@/components/ui/MainCard';
 import MainAddress from '@/components/dashboard/MainAddress';
 import MempoolList from '@/components/dashboard/Mempool';
 import TransactionDefault from '@/components/dashboard/Transaction';

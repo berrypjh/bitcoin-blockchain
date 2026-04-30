@@ -9,8 +9,9 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
+
+import StyledBreadcrumb from '@/components/ui/StyledBreadcrumb';
 import { getMinerAddress } from '@/api/blocks';
-import StyledBreadcrumb from '@/components/StyledBreadcrumb';
 
 const MinerDialog = ({ block }) => {
   const minerAddress = block.body[0].txOuts[0].address;

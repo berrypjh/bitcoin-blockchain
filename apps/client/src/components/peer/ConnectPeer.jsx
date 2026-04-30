@@ -1,35 +1,28 @@
-import PropTypes from 'prop-types';
 import { Divider, Typography } from '@mui/material';
 
-const ConnectPeerPage = ({ SuccessPeer }) => {
-  return (
-    <>
+const PeerList = ({ peers }) => (
+  <>
+    <Typography
+      variant="body1"
+      component="div"
+      sx={{ fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
+    >
+      연결된 피어
+    </Typography>
+
+    <Divider sx={{ mt: 1.25, mb: 1.25 }} />
+
+    {peers.map((peer) => (
       <Typography
+        key={peer}
         variant="body1"
         component="div"
-        sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
+        sx={{ mt: 1, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
       >
-        연결된 피어
+        {peer}
       </Typography>
-      <Divider sx={{ mt: 0.25, mb: 0.25, marginTop: '10px' }} />
+    ))}
+  </>
+);
 
-      {SuccessPeer &&
-        SuccessPeer.map((peer) => (
-          <Typography
-            key={peer}
-            variant="body1"
-            component="div"
-            sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
-          >
-            {peer}
-          </Typography>
-        ))}
-    </>
-  );
-};
-
-ConnectPeerPage.propTypes = {
-  SuccessPeer: PropTypes.arrayOf(PropTypes.string),
-};
-
-export default ConnectPeerPage;
+export default PeerList;

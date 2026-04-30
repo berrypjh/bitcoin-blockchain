@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 
-import MainCard from '@/components/MainCard';
+import MainCard from '@/components/ui/MainCard';
 import UnspentTransaction from '@/components/transaction/UnspentTransaction';
 import MyTransaction from '@/components/transaction/MyTransaction';
 
