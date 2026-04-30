@@ -1,110 +1,71 @@
 import { useState } from 'react';
-import { mineBlock, miningBlock } from '@/api/blocks';
+
 import { IconAxe } from '@tabler/icons-react';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import { Alert, Grid } from '@mui/material';
+import { Alert, Button, Grid, Snackbar } from '@mui/material';
 import ConstructionIcon from '@mui/icons-material/Construction';
 
+import { mineBlock, miningBlock } from '@/api/blocks';
+
+const snackbarAnchor = { vertical: 'top', horizontal: 'center' };
+
 const AddBlockCard = () => {
-  const [State, setState] = useState({
-    successOpen: false,
-    errorOpen: false,
-    vertical: 'top',
-    horizontal: 'center',
-  });
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
-  const { vertical, horizontal, successOpen, errorOpen } = State;
-
-  let newState = {
-    vertical: 'top',
-    horizontal: 'center',
-  };
-
-  const onSubmitAddBlock = (e) => {
-    e.preventDefault();
+  const handleMine = () => {
     mineBlock().then((res) => {
-      setState({ ...(res.message === false ? { errorOpen: true } : { successOpen: true }), ...newState });
+      res.message === false ? setErrorOpen(true) : setSuccessOpen(true);
     });
   };
 
-  const onSubmitAutoBlock = (e) => {
-    e.preventDefault();
+  const handleAutoMine = () => {
     miningBlock().then((res) => {
-      setState({ ...(res.message === false ? { errorOpen: true } : { successOpen: true }), ...newState });
+      res.message === false ? setErrorOpen(true) : setSuccessOpen(true);
     });
   };
-
-  const handleClose = () => {
-    setState({ ...State, successOpen: false });
-  };
-  const handleErrorClose = () => {
-    setState({ ...State, errorOpen: false });
-  };
-
-  // 체굴 1번 (보여주기 용)
-  const buttons = (
-    <>
-      <Button
-        type="submit"
-        color="secondary"
-        variant="text"
-        className="sendbutton"
-        style={{ width: '100%', display: 'inline-block', fontSize: '13px', color: 'gray' }}
-      >
-        <IconAxe />
-      </Button>
-    </>
-  );
-
-  const Autobuttons = (
-    <>
-      <Button
-        type="submit"
-        color="secondary"
-        variant="text"
-        className="sendbutton"
-        style={{ width: '100%', display: 'inline-block', fontSize: '13px', color: 'gray' }}
-      >
-        <ConstructionIcon />
-      </Button>
-    </>
-  );
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 5, md: 9 }}></Grid>
-        <Grid size={{ xs: 3, md: 1 }}>
-          <form onSubmit={onSubmitAddBlock}>{buttons}</form>
+      <Grid container spacing={2} sx={{ justifyContent: 'flex-end' }}>
+        <Grid size="auto">
+          <Button
+            onClick={handleMine}
+            color="secondary"
+            variant="text"
+            sx={{ fontSize: '13px', color: 'gray' }}
+          >
+            <IconAxe />
+          </Button>
         </Grid>
-        <Grid size={{ xs: 2, md: 1 }}>
-          <form onSubmit={onSubmitAutoBlock}>{Autobuttons}</form>
+        <Grid size="auto">
+          <Button
+            onClick={handleAutoMine}
+            color="secondary"
+            variant="text"
+            sx={{ fontSize: '13px', color: 'gray' }}
+          >
+            <ConstructionIcon />
+          </Button>
         </Grid>
       </Grid>
+
       <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
+        anchorOrigin={snackbarAnchor}
         open={successOpen}
-        key={vertical + horizontal}
+        autoHideDuration={3000}
+        onClose={() => setSuccessOpen(false)}
       >
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          sx={{ backgroundColor: '#20E2D7', width: '100%' }}
-        >
+        <Alert onClose={() => setSuccessOpen(false)} severity="success" sx={{ width: '100%' }}>
           채굴 시작!
         </Alert>
       </Snackbar>
       <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
+        anchorOrigin={snackbarAnchor}
         open={errorOpen}
-        key={vertical + horizontal + false}
+        autoHideDuration={3000}
+        onClose={() => setErrorOpen(false)}
       >
-        <Alert
-          onClose={handleErrorClose}
-          severity="error"
-          sx={{ backgroundColor: '#ff0844', width: '100%' }}
-        >
+        <Alert onClose={() => setErrorOpen(false)} severity="error" sx={{ width: '100%' }}>
           채굴 실패!
         </Alert>
       </Snackbar>

@@ -1,92 +1,70 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { getMempool } from '@/api/dashboard';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from '@mui/material';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Divider,
+  Typography,
+} from '@mui/material';
 
-const TxOuts = ({ mempool }) => {
-  const txOutsArray = mempool.txOuts;
-  return (
-    <>
-      {txOutsArray &&
-        txOutsArray.map((txOut, index) => (
-          <div key={index}>
-            <Typography>address : {txOut.address.match(/.{50}/g).join('\n')}</Typography>
-            <Typography>amount : {txOut.amount}</Typography>
-            {txOutsArray.length - 1 > index && (
-              <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />
-            )}
-          </div>
-        ))}
-    </>
-  );
-};
+const truncatedSx = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 
-TxOuts.propTypes = {
-  mempool: PropTypes.shape({
-    txOuts: PropTypes.array,
-  }),
-};
+const TxOuts = ({ txOuts }) => (
+  <>
+    {txOuts.map((txOut, index) => (
+      <Box key={index}>
+        <Typography noWrap sx={truncatedSx}>address : {txOut.address}</Typography>
+        <Typography>amount : {txOut.amount}</Typography>
+        {index < txOuts.length - 1 && <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />}
+      </Box>
+    ))}
+  </>
+);
 
-const TxIns = ({ mempool }) => {
-  const txInsArray = mempool.txIns;
-  return (
-    <>
-      {txInsArray &&
-        txInsArray.map((txIn, index) => (
-          <div key={index}>
-            <Typography>txOutId : {txIn.txOutId.match(/.{10}/g).join('\n')}</Typography>
-            <Typography>txOutIndex : {txIn.txOutIndex}</Typography>
-          </div>
-        ))}
-    </>
-  );
-};
 
-TxIns.propTypes = {
-  mempool: PropTypes.shape({
-    txIns: PropTypes.array,
-  }),
-};
+const TxIns = ({ txIns }) => (
+  <>
+    {txIns.map((txIn, index) => (
+      <Box key={index}>
+        <Typography noWrap sx={truncatedSx}>txOutId : {txIn.txOutId}</Typography>
+        <Typography>txOutIndex : {txIn.txOutIndex}</Typography>
+      </Box>
+    ))}
+  </>
+);
 
-const MempoolPage = () => {
-  const [Mempools, setMempools] = useState([]);
 
-  useEffect(() => {
-    getMempool().then(setMempools);
-  }, []);
+const MempoolList = ({ mempools }) => (
+  <>
+    {mempools.map((mempool, index) => (
+      <Accordion key={mempool.id}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`mempool-${mempool.id}-content`}
+          id={`mempool-${mempool.id}-header`}
+        >
+          <Typography>예정된 거래내역 {index + 1}</Typography>
+        </AccordionSummary>
 
-  return (
-    <>
-      {Mempools &&
-        Mempools.map((mempool, index) => (
-          <Accordion key={mempool.id}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>예정된 거래내역 {index + 1}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>id : {mempool.id}</Typography>
-              <Divider sx={{ mt: 1.25, mb: 1.25 }} />
-              <Typography>
-                <TxIns mempool={mempool} />
-              </Typography>
-              <AccordionDetails style={{ textAlign: 'center' }}>
-                <ArrowCircleDownIcon />
-              </AccordionDetails>
-              <Typography>
-                <TxOuts mempool={mempool} />
-              </Typography>
-              <Divider sx={{ mt: 1.25, mb: 1.25 }} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
-    </>
-  );
-};
+        <AccordionDetails>
+          <Typography noWrap sx={truncatedSx}>id : {mempool.id}</Typography>
+          <Divider sx={{ mt: 1.25, mb: 1.25 }} />
+          <TxIns txIns={mempool.txIns ?? []} />
 
-export default MempoolPage;
+          <Box sx={{ textAlign: 'center', py: 1 }}>
+            <ArrowCircleDownIcon />
+          </Box>
+
+          <TxOuts txOuts={mempool.txOuts ?? []} />
+          <Divider sx={{ mt: 1.25, mb: 1.25 }} />
+        </AccordionDetails>
+      </Accordion>
+    ))}
+  </>
+);
+
+
+export default MempoolList;

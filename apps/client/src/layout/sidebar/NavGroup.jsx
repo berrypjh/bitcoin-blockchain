@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import { List, Typography } from '@mui/material';
 
@@ -18,20 +17,21 @@ const NavGroup = ({ item }) => {
 
   return (
     <List
+      sx={{ display: 'flex', flexDirection: 'row', p: 0 }}
       subheader={
         item.title && (
           <Typography
             variant="caption"
             sx={{ ...theme.typography.menuCaption }}
-            display="inline-block"
+            display="block"
             gutterBottom
           >
+            {item.title}
             {item.caption && (
               <Typography
                 variant="caption"
                 sx={{ ...theme.typography.subMenuCaption }}
-                display="inline-block"
-                gutterBottom
+                display="block"
               >
                 {item.caption}
               </Typography>
@@ -43,14 +43,6 @@ const NavGroup = ({ item }) => {
       {items}
     </List>
   );
-};
-
-NavGroup.propTypes = {
-  item: PropTypes.shape({
-    title: PropTypes.string,
-    caption: PropTypes.string,
-    children: PropTypes.array,
-  }),
 };
 
 export default NavGroup;

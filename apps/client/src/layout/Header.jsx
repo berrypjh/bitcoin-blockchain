@@ -1,22 +1,21 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 
-import LogoSection from './LogoSection';
 import AddBlockCard from '@/components/block/AddBlockCard';
+import LogoSection from './LogoSection';
 
 const Header = () => (
-  <Grid container spacing={2}>
-    <Grid size={2}>
-      <Box style={{ width: 128, paddingTop: '10px', paddingLeft: '28px', paddingBottom: '1px' }}>
-        <Box component="span">
-          <LogoSection />
-        </Box>
-      </Box>
-    </Grid>
-    <Grid size={4} />
-    <Grid size={6}>
-      <AddBlockCard />
-    </Grid>
-  </Grid>
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      px: 2,
+    }}
+  >
+    <LogoSection />
+    <AddBlockCard />
+  </Box>
 );
 
 export default Header;
