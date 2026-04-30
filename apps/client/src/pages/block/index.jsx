@@ -1,31 +1,30 @@
 import { useState, useEffect } from 'react';
+
 import { Grid } from '@mui/material';
-import { getBlocks } from '@/api/blocks';
+
 import BlocksCard from '@/components/block/BlocksCard';
 import TransactionCard from '@/components/block/TransactionCard';
+import { getBlocks } from '@/api/blocks';
 
-const BlockDefault = () => {
-  const [Blocks, setBlocks] = useState([]);
-  const [Transaction, setTransaction] = useState([]);
-
-  const data = { Blocks, setTransaction };
+const BlockPage = () => {
+  const [blocks, setBlocks] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     getBlocks().then(setBlocks);
   }, []);
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <BlocksCard data={data} />
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <TransactionCard Transaction={Transaction} />
-        </Grid>
+    <Grid container spacing={2}>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <BlocksCard blocks={blocks} onSelectBlock={setTransactions} />
       </Grid>
-    </>
+
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TransactionCard transactions={transactions} />
+      </Grid>
+    </Grid>
   );
 };
 
-export default BlockDefault;
+export default BlockPage;

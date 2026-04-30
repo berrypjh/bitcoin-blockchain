@@ -1,94 +1,79 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Divider,
+  Typography,
+} from '@mui/material';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const TxInSection = ({ tx }) => {
-  const TxInArray = tx.txIns;
-  return (
-    <>
-      {TxInArray &&
-        TxInArray.map((txIn, index) => {
-          if (!txIn.txOutId) return <>COINBASE (Newly Gemerate Coins)</>;
-          return (
-            <>
-              <Typography>txOutId : {txIn.txOutId.match(/.{10}/g).join('\n')}</Typography>
-              <Typography>txOutIndex : {txIn.txOutIndex}</Typography>
-              {TxInArray.length - 1 > index && (
-                <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />
-              )}
-            </>
-          );
-        })}
-    </>
-  );
-};
+const truncatedSx = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 
-TxInSection.propTypes = {
-  tx: PropTypes.shape({
-    txIns: PropTypes.array,
-  }),
-};
+const TxInSection = ({ txIns }) => (
+  <>
+    {txIns.map((txIn, index) => {
+      if (!txIn.txOutId)
+        return <Typography key={index}>COINBASE (Newly Generate Coins)</Typography>;
 
-const TxOutSection = ({ tx }) => {
-  const TxOutArray = tx.txOuts;
-  return (
-    <>
-      {TxOutArray &&
-        TxOutArray.map((txOut, index) => (
-          <>
-            <Typography>address : {txOut.address.match(/.{10}/g).join('\n')}</Typography>
-            <Typography>amount : {txOut.amount}</Typography>
-            {TxOutArray.length - 1 > index && (
-              <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />
-            )}
-          </>
-        ))}
-    </>
-  );
-};
+      return (
+        <Box key={txIn.txOutId + index}>
+          <Typography noWrap sx={truncatedSx}>
+            txOutId : {txIn.txOutId}
+          </Typography>
 
-TxOutSection.propTypes = {
-  tx: PropTypes.shape({
-    txOuts: PropTypes.array,
-  }),
-};
+          <Typography>txOutIndex : {txIn.txOutIndex}</Typography>
+          {index < txIns.length - 1 && <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />}
+        </Box>
+      );
+    })}
+  </>
+);
 
-const TransactionCard = ({ Transaction }) => {
-  const [expanded, setExpanded] = useState(true);
+const TxOutSection = ({ txOuts }) => (
+  <>
+    {txOuts.map((txOut, index) => (
+      <Box key={txOut.address + index}>
+        <Typography noWrap sx={truncatedSx}>
+          address : {txOut.address}
+        </Typography>
+        <Typography>amount : {txOut.amount}</Typography>
+        {index < txOuts.length - 1 && <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />}
+      </Box>
+    ))}
+  </>
+);
 
-  const handleChange = () => setExpanded((prev) => !prev);
+const TransactionCard = ({ transactions }) => (
+  <>
+    {transactions.map((tx) => (
+      <Accordion key={tx.id}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`tx-${tx.id}-content`}
+          id={`tx-${tx.id}-header`}
+          sx={{ '& .MuiAccordionSummary-content': { minWidth: 0, overflow: 'hidden' } }}
+        >
+          <Typography noWrap sx={truncatedSx}>
+            ID : {tx.id}
+          </Typography>
+        </AccordionSummary>
 
-  return (
-    <>
-      {Transaction &&
-        Transaction.map((tx) => (
-          <Accordion expanded={expanded} onChange={handleChange} key={tx.id}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>ID - {tx.id.match(/.{10}/g).join('\n')}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TxInSection tx={tx} />
-            </AccordionDetails>
-            <AccordionDetails style={{ textAlign: 'center' }}>
-              <ArrowCircleDownIcon />
-            </AccordionDetails>
-            <AccordionDetails>
-              <TxOutSection tx={tx} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
-    </>
-  );
-};
+        <AccordionDetails>
+          <TxInSection txIns={tx.txIns ?? []} />
+        </AccordionDetails>
 
-TransactionCard.propTypes = {
-  Transaction: PropTypes.array,
-};
+        <AccordionDetails sx={{ display: 'flex', justifyContent: 'center' }}>
+          <ArrowCircleDownIcon />
+        </AccordionDetails>
+
+        <AccordionDetails>
+          <TxOutSection txOuts={tx.txOuts ?? []} />
+        </AccordionDetails>
+      </Accordion>
+    ))}
+  </>
+);
 
 export default TransactionCard;

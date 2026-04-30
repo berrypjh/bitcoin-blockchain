@@ -1,52 +1,107 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContentText, DialogTitle } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Typography,
+} from '@mui/material';
 import { getMinerAddress } from '@/api/blocks';
 import StyledBreadcrumb from '@/components/StyledBreadcrumb';
 
 const MinerDialog = ({ block }) => {
-  const MinerAddress = block.body[0].txOuts[0].address;
+  const minerAddress = block.body[0].txOuts[0].address;
   const [open, setOpen] = useState(false);
-  const [MinerInfo, setMinerInfo] = useState({});
+  const [minerInfo, setMinerInfo] = useState({});
 
-  const handleClickOpen = () => {
-    if (!MinerAddress) return;
-    getMinerAddress(MinerAddress).then(setMinerInfo);
+  const handleOpen = () => {
+    if (!minerAddress) return;
+    getMinerAddress(minerAddress).then(setMinerInfo);
     setOpen(true);
   };
 
-  const handleClose = () => setOpen(false);
-
   return (
     <>
-      <StyledBreadcrumb component="a" onClick={handleClickOpen} label="Unknown" />
+      <StyledBreadcrumb component="a" onClick={handleOpen} label="Miner" />
       <Dialog
         open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        onClose={() => setOpen(false)}
+        aria-labelledby="miner-dialog-title"
+        aria-describedby="miner-dialog-description"
+        slotProps={{ paper: { sx: { minWidth: 360 } } }}
       >
-        <DialogTitle id="alert-dialog-title">Miner</DialogTitle>
-        <DialogContentText style={{ margin: '20px' }}>
-          <DialogContentText id="alert-dialog-description">
-            주소 : {MinerAddress && MinerAddress.match(/.{10}/g).join('\n')}
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-description">
-            잔액 : {MinerInfo.balance}
-          </DialogContentText>
-        </DialogContentText>
-        <DialogActions>
-          <Button onClick={handleClose}>CLOSE</Button>
+        <DialogTitle id="miner-dialog-title">
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography variant="subtitle1" component="span">
+              Miner
+            </Typography>
+          </Box>
+        </DialogTitle>
+
+        <Divider />
+
+        <DialogContent id="miner-dialog-description" sx={{ px: 3, py: 1.5 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <Box>
+              <Typography
+                sx={{ fontSize: '0.85rem', fontWeight: 600 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                주소
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: 'monospace',
+                  wordBreak: 'break-all',
+                  bgcolor: 'action.hover',
+                  borderRadius: 1,
+                  px: 1.5,
+                  py: 1,
+                }}
+              >
+                {minerAddress}
+              </Typography>
+            </Box>
+
+            <Box>
+              <Typography
+                sx={{ fontSize: '0.85rem', fontWeight: 600 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                잔액
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontFamily: 'monospace',
+                  bgcolor: 'action.hover',
+                  borderRadius: 1,
+                  px: 1.5,
+                  py: 1,
+                }}
+              >
+                {minerInfo.balance ?? '-'} BTC
+              </Typography>
+            </Box>
+          </Box>
+        </DialogContent>
+
+        <Divider />
+
+        <DialogActions sx={{ px: 3, py: 1.5 }}>
+          <Button onClick={() => setOpen(false)} variant="outlined" size="small">
+            닫기
+          </Button>
         </DialogActions>
       </Dialog>
     </>
   );
-};
-
-MinerDialog.propTypes = {
-  block: PropTypes.shape({
-    body: PropTypes.array,
-  }),
 };
 
 export default MinerDialog;
