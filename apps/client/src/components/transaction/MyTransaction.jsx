@@ -1,41 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Box, Divider, Typography } from '@mui/material';
 import { getMyMempool } from '@/api/transaction';
+import TxItemList from './TxItemList';
 
-const MyTransactionPage = () => {
-  const [MyMempool, setMyMempool] = useState([]);
+const MyTransaction = () => {
+  const [mempoolItems, setMempoolItems] = useState([]);
 
   useEffect(() => {
-    getMyMempool().then(setMyMempool);
+    getMyMempool().then(setMempoolItems);
   }, []);
 
-  return (
-    <>
-      <Typography
-        variant="body1"
-        component="div"
-        sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}
-      >
-        사용 예정 트랜잭션
-      </Typography>
-      <Divider sx={{ mt: 0.3, mb: 1.25, marginTop: '10px' }} />
-      {MyMempool &&
-        MyMempool.map((utxo, index) => {
-          return (
-            <>
-              <Box key={utxo.txOutId}>
-                <Typography>txOutId : {utxo.txOutId.match(/.{10}/g).join('\n')}</Typography>
-                <Typography>txOutIndex : {utxo.txOutIndex}</Typography>
-                <Typography>amount : {utxo.amount}</Typography>
-                {MyMempool.length - 1 > index && (
-                  <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />
-                )}
-              </Box>
-            </>
-          );
-        })}
-    </>
-  );
+  return <TxItemList title="사용 예정 트랜잭션" items={mempoolItems} />;
 };
 
-export default MyTransactionPage;
+export default MyTransaction;
