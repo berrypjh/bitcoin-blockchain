@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Alert, Button, FormControl, Snackbar, TextField } from '@mui/material';
-import { addPeer } from '@/api/peer';
+import { addPeer, getPeers } from '@/api/peer';
 
 const snackbarAnchor = { vertical: 'top', horizontal: 'center' };
 
@@ -13,21 +13,21 @@ const AddPeer = ({ peers, onSuccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const ws = `ws://localhost:${port}`;
-
-    if (peers.includes(ws)) {
+    if (peers.some((peer) => peer.endsWith(port))) {
       setWarningOpen(true);
       setPort('');
       return;
     }
 
-    addPeer(port).then((updatedPeers) => {
-      if (updatedPeers?.includes(ws)) {
+    addPeer(port).then(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const updatedPeers = await getPeers();
+      if (updatedPeers.some((peer) => peer.endsWith(`:${port}`))) {
         setSuccessOpen(true);
-        onSuccess();
       } else {
         setErrorOpen(true);
       }
+      onSuccess();
       setPort('');
     });
   };
@@ -42,7 +42,7 @@ const AddPeer = ({ peers, onSuccess }) => {
             sx={{ width: '100%' }}
             value={port}
             onChange={(e) => setPort(e.target.value)}
-            placeholder="4자리 포트 번호를 입력하세요"
+            placeholder="P2P 포트 번호 (예: 6001)"
           />
         </FormControl>
         <Button type="submit" color="secondary" variant="outlined" sx={{ width: '100%' }}>

@@ -7,17 +7,25 @@ import MainAddress from '@/components/dashboard/MainAddress';
 import MempoolList from '@/components/dashboard/Mempool';
 import TransactionDefault from '@/components/dashboard/Transaction';
 import { getMempool } from '@/api/dashboard';
+import useSSE from '@/hooks/useSSE';
 
 const Dashboard = () => {
   const [mempools, setMempools] = useState([]);
+  const [blockVersion, setBlockVersion] = useState(0);
 
-  const fetchMempools = useCallback(() => {
-    getMempool().then(setMempools);
-  }, []);
+  const fetchMempools = useCallback(() => getMempool().then(setMempools), []);
 
   useEffect(() => {
     fetchMempools();
   }, [fetchMempools]);
+
+  useSSE({
+    block: () => {
+      setBlockVersion((v) => v + 1);
+      fetchMempools();
+    },
+    mempool: fetchMempools,
+  });
 
   return (
     <Grid container spacing={2}>
@@ -29,7 +37,7 @@ const Dashboard = () => {
 
       <Grid size={{ xs: 12, md: 6 }}>
         <MainCard>
-          <TransactionDefault onSuccess={fetchMempools} />
+          <TransactionDefault onSuccess={fetchMempools} blockVersion={blockVersion} />
         </MainCard>
       </Grid>
 

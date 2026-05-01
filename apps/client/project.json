@@ -6,7 +6,7 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "vite",
+        "command": "vite --port 3000",
         "cwd": "{projectRoot}"
       }
     },

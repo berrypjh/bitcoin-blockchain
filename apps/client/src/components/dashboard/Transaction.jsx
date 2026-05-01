@@ -6,7 +6,7 @@ import { getBalance, addTransaction } from '@/api/dashboard';
 
 const snackbarAnchor = { vertical: 'top', horizontal: 'center' };
 
-const TransactionDefault = ({ onSuccess }) => {
+const TransactionDefault = ({ onSuccess, blockVersion }) => {
   const [sendAddress, setSendAddress] = useState('');
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState(0);
@@ -15,7 +15,7 @@ const TransactionDefault = ({ onSuccess }) => {
 
   useEffect(() => {
     getBalance().then(setBalance);
-  }, []);
+  }, [blockVersion]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

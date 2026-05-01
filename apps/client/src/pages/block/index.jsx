@@ -1,18 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { Grid } from '@mui/material';
 
 import BlocksCard from '@/components/block/BlocksCard';
 import TransactionCard from '@/components/block/TransactionCard';
 import { getBlocks } from '@/api/blocks';
+import useSSE from '@/hooks/useSSE';
 
 const BlockPage = () => {
   const [blocks, setBlocks] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
+  const fetchBlocks = useCallback(() => getBlocks().then(setBlocks), []);
+
   useEffect(() => {
-    getBlocks().then(setBlocks);
-  }, []);
+    fetchBlocks();
+  }, [fetchBlocks]);
+
+  useSSE({ block: fetchBlocks });
 
   return (
     <Grid container spacing={2}>
