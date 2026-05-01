@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const eventBus = require('./eventBus');
 const {
   addBlock,
   getReverseBlocks,
@@ -12,8 +13,30 @@ const {
   gefindMyUTxOutsFromMempool,
 } = require('./block');
 const { getMempool } = require('./memPool');
-const { connectToPeers, getSockets, mining } = require('./p2pServer');
+const { connectToPeers, getSockets, getP2PPort, mining } = require('./p2pServer');
 const { getBalance, getPublicKeyFromWallet } = require('./wallet');
+
+router.get('/events', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders();
+
+  const send = (event) => res.write(`event: ${event}\ndata: {}\n\n`);
+  const onBlock = () => send('block');
+  const onMempool = () => send('mempool');
+  const onPeer = () => send('peer');
+
+  eventBus.on('block', onBlock);
+  eventBus.on('mempool', onMempool);
+  eventBus.on('peer', onPeer);
+
+  req.on('close', () => {
+    eventBus.off('block', onBlock);
+    eventBus.off('mempool', onMempool);
+    eventBus.off('peer', onPeer);
+  });
+});
 
 router.get('/blocks', (req, res) => {
   res.send(getReverseBlocks());
@@ -52,6 +75,11 @@ router.post('/addPeers', (req, res) => {
 
   const peerNumber = peer[0].split(':');
   return res.json({ peer: peerNumber[2] });
+});
+
+router.get('/p2pPort', (req, res) => {
+  const p2pPort = getP2PPort();
+  res.json({ port: p2pPort });
 });
 
 router.get('/peers', (req, res) => {

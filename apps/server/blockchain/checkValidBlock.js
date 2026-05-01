@@ -1,5 +1,5 @@
 const merkle = require('merkle');
-const { createHash, getTimestamp } = require('./block');
+const { createHash, getTimestamp, hashMatchesDifficulty } = require('./block');
 
 const isValidBlockStructure = (block) => {
   return (
@@ -33,6 +33,9 @@ const isValidNewBlock = (newBlock, previousBlock) => {
     return false;
   } else if (!isValidTimestamp(newBlock, previousBlock)) {
     console.log('Invalid Timestamp');
+    return false;
+  } else if (!hashMatchesDifficulty(createHash(newBlock), newBlock.header.difficulty)) {
+    console.log('Invalid PoW: hash does not meet difficulty');
     return false;
   }
 

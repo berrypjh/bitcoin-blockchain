@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const { validateTx } = require('./checkValidTx');
+const eventBus = require('./eventBus');
 
 let mempool = [];
 
@@ -12,6 +13,7 @@ const addToMempool = (tx, uTxOutList) => {
     throw Error('This tx is not valid for the pool. Will not add it.');
   }
   mempool.push(tx);
+  eventBus.emit('mempool');
 };
 
 const hasTxIn = (txIn, uTxOutList) => {
@@ -36,6 +38,7 @@ const updateMempool = (uTxOutList) => {
 
   if (invalidTxs.length > 0) {
     mempool = _.without(mempool, ...invalidTxs);
+    eventBus.emit('mempool');
   }
 };
 

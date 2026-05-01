@@ -11,8 +11,12 @@ const {
 } = require('./block');
 const { isValidBlockStructure } = require('./checkValidBlock');
 const { getMempool } = require('./memPool');
+const eventBus = require('./eventBus');
+
+let p2pPort = null;
 
 const initP2PServer = (ws_port) => {
+  p2pPort = ws_port;
   const server = new WebSocketServer({ port: ws_port });
   server.on('connection', (ws) => {
     initConnection(ws);
@@ -21,6 +25,10 @@ const initP2PServer = (ws_port) => {
     console.log('error');
   });
   console.log('Listening webSocket port : ' + ws_port);
+};
+
+const getP2PPort = () => {
+  return p2pPort;
 };
 
 let sockets = [];
@@ -72,14 +80,17 @@ const initConnection = (ws) => {
   initMessageHandler(ws);
   initErrorHandler(ws);
   write(ws, queryLatestMsg());
+  eventBus.emit('peer');
+
   setTimeout(() => {
     broadcast(getAllMempool());
   }, 1000);
+
   setInterval(() => {
-    if (sockets.includes(ws)) {
-      write(ws, '');
+    if (sockets.includes(ws) && ws.readyState === ws.OPEN) {
+      ws.ping();
     }
-  }, 1000);
+  }, 10000);
 };
 
 const getSockets = () => {
@@ -156,14 +167,20 @@ const initMessageHandler = (ws) => {
         if (receivedTxs === null) {
           return;
         }
+
+        let added = false;
         receivedTxs.forEach((tx) => {
           try {
             handleIncomingTx(tx);
-            broadcast(returnMempool());
+            added = true;
           } catch (e) {
             console.log(e);
           }
         });
+
+        if (added) {
+          broadcast(returnMempool());
+        }
         break;
       }
     }
@@ -207,13 +224,16 @@ const broadcast = (message) => {
   });
 };
 
+let miningInterval = null;
+
 const mining = () => {
-  let block;
-  setInterval(() => {
-    block = newNextBlock();
-    if (!addBlock(block)) {
-      return false;
-    }
+  if (miningInterval !== null) {
+    return false;
+  }
+
+  miningInterval = setInterval(() => {
+    const block = newNextBlock();
+    addBlock(block);
   }, 10000);
 
   return true;
@@ -223,6 +243,7 @@ module.exports = {
   initP2PServer,
   connectToPeers,
   getSockets,
+  getP2PPort,
   broadcast,
   responseLatestMsg,
   returnMempool,

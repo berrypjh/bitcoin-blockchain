@@ -1,5 +1,6 @@
 const fs = require('fs');
 const merkle = require('merkle');
+const eventBus = require('./eventBus');
 const cryptojs = require('crypto-js');
 const _ = require('lodash');
 const hexToBinary = require('hex-to-binary');
@@ -117,6 +118,7 @@ const addBlock = (newBlock) => {
       unspentTxOuts = processedTxs;
       updateMempool(unspentTxOuts);
       broadcast(responseLatestMsg());
+      eventBus.emit('block');
       return true;
     }
   }
@@ -333,4 +335,5 @@ module.exports = {
   handleIncomingTx,
   getFindMyUTxO,
   gefindMyUTxOutsFromMempool,
+  hashMatchesDifficulty,
 };
