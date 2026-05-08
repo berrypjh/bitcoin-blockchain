@@ -9,7 +9,6 @@
     "@mui/material": "^9.0.0",
     "@mui/system": "^9.0.0",
     "@tabler/icons-react": "^3.41.1",
-    "axios": "^1.15.2",
     "framer-motion": "^12.38.0",
     "material-ui-popup-state": "^5.3.7",
     "prop-types": "^15.8.1",

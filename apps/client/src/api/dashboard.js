@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './client';
 
 export const getAddress = () => api.get('/address').then((res) => res.data);
 export const getBalance = () => api.get('/balance').then((res) => res.data.balance);

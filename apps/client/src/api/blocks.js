@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './client';
 
 export const getBlocks = () => api.get('/blocks').then((res) => res.data);
 export const mineBlock = () => api.post('/mineBlock').then((res) => res.data);
